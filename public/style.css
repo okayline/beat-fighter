@@ -8,10 +8,16 @@
   --ghost: #ff6b8a;      /* the ghost squad */
   --strong: #ffb020;     /* strong beats */
   --line: #3a4361;
+  --glass: rgba(31, 38, 64, .72);   /* the lane colour, see-through: panels floating over the sky */
   --font: "Avenir Next", "Segoe UI Variable Display", "Segoe UI", system-ui, -apple-system, sans-serif;
 }
 * { box-sizing: border-box; }
 html { background: var(--floor); color: var(--ink); font-family: var(--font); font-weight: 700; }
+/* the sky behind everything: CW Leo seen by NASA's GALEX (public domain), on its own fixed layer (iOS ignores
+   background-attachment: fixed), a little darker so the text on it stays readable */
+html::before { content: ""; position: fixed; inset: 0; z-index: -1;
+  background: linear-gradient(rgba(10, 13, 28, .35), rgba(10, 13, 28, .35)), url("bg-cw-leo.jpg") center / cover no-repeat; }
+body { text-shadow: 0 1px 6px rgba(0, 0, 0, .85); }   /* text stays readable where it sits on the sky */
 body { margin: 0 auto; max-width: 760px; padding: 20px 16px 40px; }
 a { color: var(--you); text-underline-offset: 3px; }
 :focus-visible { outline: 3px solid var(--you); outline-offset: 3px; }
@@ -111,3 +117,8 @@ a { color: var(--you); text-underline-offset: 3px; }
 /* the account panel */
 .top .right { display: flex; gap: 14px; align-items: baseline; }
 .link { font: inherit; color: var(--you); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+
+/* the panels float over the sky: see-through, blurred behind, with a shadow */
+.fight, .mv, .log-sec, .entries li, .cal, .more { background: var(--glass);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); box-shadow: 0 10px 30px rgba(0, 0, 0, .45); }
+.log-sec { border-radius: 16px; padding: 2px 16px 14px; margin-top: 16px; }
