@@ -179,6 +179,7 @@ async function begin() {
   const lead = a.ctx.currentTime + 0.2;
   t0 = lead + 4 * spb;                                                        // one measure of count-in
   for (let i = 0; i < 4; i++) a.sample("hat", lead + i * spb, i === 3 ? 0.9 : 0.5);
+  a.bed(lead, t0 + LOOPS * day.measures * 4 * spb);                            // the bed starts with the count-in's first hat
   for (let l = 0; l < LOOPS; l++) for (const h of day.hits) a.sample(h.drum, t0 + (l * day.measures * 4 + h.at) * spb);
   cueAt = -1; shown = -1; callFor(0);
   const end = LOOPS * day.measures * 4;

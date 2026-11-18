@@ -31,6 +31,11 @@
 //
 // The chords are not played (the pad was taken out); they are kept as the day's record, shown on the ledger page.
 //
+// THE BED: kits with beds (BEDS) also play one recorded bed under the fight: 15.0 s, exactly 8 measures at 128 BPM,
+// cut so its beat 1 lands on the count-in's first hat. It starts with the count-in and loops until the song ends.
+//
+//   byte 4           also the day's bed (value mod BEDS[kit]), the same byte as the progression (no byte is free)
+//
 //   bytes 18, 19     as one number, mod the size of the kit's tempo range (TEMPO): the tempo above its low end
 //                    (hip-hop 80 to 100, house always 128, bounce 90 to 100, tech-house always 128)
 //   bytes 5 to 9     which recording of each drum the kit plays today (kick, snare, clap, hat, open: VOICE_BYTE, value mod
@@ -56,7 +61,8 @@ export const KIT_DRUMS = { "hip-hop": ["kick", "snare", "hat"], house: ["kick", 
 export const VOICES = { "hip-hop": { kick: 3, snare: 3, hat: 1 }, house: { kick: 1, snare: 3, hat: 1 }, bounce: { kick: 3, clap: 1, hat: 1, open: 1 }, "tech-house": { kick: 3, clap: 1, hat: 1, open: 1 } };   // how many recordings each kit has of each drum (samples/<kit>/<drum>-<n>.wav, n from 1)
 export const VOICE_BYTE = { kick: 5, snare: 6, clap: 7, hat: 8, open: 9 };   // the byte that picks the day's recording of each drum
 export const HAT_RATE = { "hip-hop": 1, house: 1.2, bounce: 0.9, "tech-house": 1.1 };   // the hats of three packs are the same recording, so each kit plays it at its own pitch
-export const WAIT = 2;                                    // beats from a wind-up's cue to where it lands
+export const BEDS = { house: 5 };                         // how many beds a kit has (samples/<kit>/bed-<n>.wav); kits not listed have none
+export const WAIT = 2;                                   // beats from a wind-up's cue to where it lands
 export const SHAPE = ["A", "A", "A", "B", "A", "A", "A", "C"];
 
 
@@ -201,5 +207,6 @@ export function beat(hash) {
   const [lo, hi] = TEMPO[style];
   const bpm = lo + (((bytes[18] << 8) | bytes[19]) % (hi - lo + 1));
   const voice = Object.fromEntries(KIT_DRUMS[style].map((d) => [d, bytes[VOICE_BYTE[d]] % VOICES[style][d]]));
-  return { measures: MEASURES, bpm, style, voice, key, chords, hits, cues, targets };
+  const bed = BEDS[style] ? bytes[4] % BEDS[style] : -1;
+  return { measures: MEASURES, bpm, style, voice, key, chords, hits, cues, targets, bed };
 }

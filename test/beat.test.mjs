@@ -203,3 +203,14 @@ test("a tap is scored by its distance from the metronome: perfect within 35 ms, 
   ]);
   assert.deepEqual(score([1000], [900, 990, 1030]), [{ err: -10, grade: "perfect" }], "the nearest tap counts");
 });
+
+test("the day's bed worked out by hand: house days pick one by byte 4 (mod 5), other kits have none, every bed file is there", () => {
+  // byte 20 picks the kit (mod 4): 1 is house, 0 hip-hop, 3 tech-house; byte 4 also picks the bed on house days
+  const day = (b4, kit) => { const b = Array(32).fill(0); b[4] = b4; b[20] = kit; return beat(hex(b)); };
+  assert.equal(day(0, 1).bed, 0);
+  assert.equal(day(7, 1).bed, 2);     // 7 mod 5
+  assert.equal(day(254, 1).bed, 4);   // 254 mod 5
+  assert.equal(day(7, 0).bed, -1);    // hip-hop: no beds
+  assert.equal(day(7, 3).bed, -1);    // tech-house: no beds
+  for (const n of [1, 2, 3, 4, 5]) assert.ok(existsSync(new URL(`../public/samples/house/bed-${n}.wav`, import.meta.url)), "bed-" + n);
+});
