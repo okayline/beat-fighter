@@ -58,7 +58,7 @@ export const CLAPS = Array.from({ length: MEASURES }, (_, m) => m * MEASURE + 3)
 export const STYLES = ["hip-hop", "house", "bounce", "tech-house"];
 export const TAP = { "hip-hop": "snare", house: "kick", bounce: "clap", "tech-house": "kick" };   // what the player's tap on beat 4 plays: the backbeat's 4, the fourth kick, a clap
 export const KIT_DRUMS = { "hip-hop": ["kick", "snare", "hat"], house: ["kick", "snare", "hat"], bounce: ["kick", "clap", "hat", "open"], "tech-house": ["kick", "clap", "hat", "open"] };   // the samples each kit loads
-export const VOICES = { "hip-hop": { kick: 3, snare: 3, hat: 1 }, house: { kick: 1, snare: 3, hat: 1 }, bounce: { kick: 3, clap: 1, hat: 1, open: 1 }, "tech-house": { kick: 3, clap: 1, hat: 1, open: 1 } };   // how many recordings each kit has of each drum (samples/<kit>/<drum>-<n>.wav, n from 1)
+export const VOICES = { "hip-hop": { kick: 3, snare: 3, hat: 1 }, house: { kick: 5, snare: 3, hat: 1 }, bounce: { kick: 3, clap: 1, hat: 1, open: 1 }, "tech-house": { kick: 3, clap: 1, hat: 1, open: 1 } };   // how many recordings each kit has of each drum (samples/<kit>/<drum>-<n>.wav, n from 1)
 export const VOICE_BYTE = { kick: 5, snare: 6, clap: 7, hat: 8, open: 9 };   // the byte that picks the day's recording of each drum
 export const HAT_RATE = { "hip-hop": 1, house: 1.2, bounce: 0.9, "tech-house": 1.1 };   // the hats of three packs are the same recording, so each kit plays it at its own pitch
 export const BEDS = { house: 5 };                         // how many beds a kit has (samples/<kit>/bed-<n>.wav); kits not listed have none

@@ -65,6 +65,9 @@ test("the day picks one recording of each drum from bytes 5 to 9, mod how many t
   assert.deepEqual(beat(hex([0, 0, 0, 0, 0, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])).voice, { kick: 1, snare: 2, hat: 0 });
   // bounce (byte 20 = 2): 3 kicks, 1 clap, 1 hat, 1 open: 4%3 = 1, the rest 0
   assert.deepEqual(beat(hex([0, 0, 0, 0, 0, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2])).voice, { kick: 1, clap: 0, hat: 0, open: 0 });
+  // house (byte 20 = 1): 5 kicks, 3 snares, 1 hat: 4%5 = 4, 5%3 = 2, 7%1 = 0; and kick byte 7: 7%5 = 2
+  assert.deepEqual(beat(hex([0, 0, 0, 0, 0, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1])).voice, { kick: 4, snare: 2, hat: 0 });
+  assert.equal(beat(hex([0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1])).voice.kick, 2);
   // every recording a day can pick is a file
   for (const k of STYLES) for (const [d, n] of Object.entries(VOICES[k])) for (let i = 1; i <= n; i++) assert.ok(existsSync(`public/samples/${k}/${d}-${i}.wav`), `${k}/${d}-${i}`);
   assert.deepEqual(Object.keys(VOICES).sort(), [...STYLES].sort());

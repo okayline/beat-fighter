@@ -7,7 +7,8 @@ Newest first. Times are Hawaii time (HST).
 ## v0.13.0
 **Tue Nov 17, 2026 · 11:05 PM HST**
 
-- **Music under the drums on house days:** a soft recorded bed (pads and bass, no drums) starts with the count-in's first hat, loops under the fight and fades out at the end. The day's hash picks one of 5 (byte 4, the same byte as the chord progression). Made with Stable Audio 3, each cut to exactly 8 measures at 128 BPM and lined up by ear. Other kits are unchanged. Removed: nothing.
+- **Music under the drums on house days:** a soft recorded bed (pads and bass, no drums) starts with the count-in's first hat, loops under the fight and fades out at the end. The day's hash picks one of 5 (byte 4, the same byte as the chord progression). Made with Stable Audio 3, each cut to exactly 8 measures at 128 BPM and lined up by ear. Other kits are unchanged.
+- **More house kicks:** 4 new kick drums (also made with Stable Audio 3), so house days pick one of 5 instead of always the same one. Removed: nothing.
 
 ## v0.12.5
 **Sat Oct 31, 2026 · 10:35 PM HST**
